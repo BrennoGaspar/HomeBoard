@@ -43,7 +43,7 @@ export async function middleware(request: NextRequest) {
 
   // EXEMPLO DE PROTEÇÃO:
   // Se o usuário não estiver logado e tentar acessar o /dashboard, vai para o /
-  if (!user && request.nextUrl.pathname.startsWith('/dashboard')) {
+  if (!user && request.nextUrl.pathname.startsWith('/home')) {
     return NextResponse.redirect(new URL('/', request.url))
   }
 
