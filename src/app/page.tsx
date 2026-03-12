@@ -35,6 +35,7 @@ export default function Home() {
             placeholder="seu@email.com" 
             className="border border-gray-300 rounded-md p-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
             onChange={e => setEmail(e.target.value)}
+            required
           />
         </div>
 
@@ -47,6 +48,7 @@ export default function Home() {
             placeholder="••••••••" 
             className="border border-gray-300 rounded-md p-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
             onChange={e => setPassword(e.target.value)}
+            required
           />
         </div>
 
