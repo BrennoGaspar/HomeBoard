@@ -1,13 +1,38 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 'use client'
 
+import { Fetch } from "@/util/Fetch";
+import { useEffect, useState } from "react";
+
+interface Task {
+    id: number;
+    name: string;
+    type: number;
+}
+
 export default function HomePage() {
+
+    const [tasks, setTasks] = useState<Task[]>([]);
 
     const handleAdd = async (e: React.FormEvent) => {
         e.preventDefault();
         // Sua lógica de backend entrará aqui
     }
 
-    
+    const handleFetch = async () => {
+        const data = await Fetch();
+
+        if (data && !Array.isArray(data)) {
+            console.error("Erro ao buscar:", data.error);
+        } else {
+            setTasks(data || []);
+            console.log("DADOS RECEBIDOS: ", data);
+        }
+    }
+
+    useEffect(() => {
+        handleFetch();
+    }, []);
 
     return (
 
@@ -25,13 +50,13 @@ export default function HomePage() {
                     <button
                         type="submit"
                         className='rounded-r-lg bg-[--secundary-color] hover:opacity-90 transition-opacity text-xl p-3 px-6 text-white font-semibold shadow-sm'
-                        style={{ backgroundColor: 'var(--secundary-color, #3b82f6)' }} // Fallback caso a variável não esteja no CSS
+                        style={{ backgroundColor: 'var(--secundary-color, #3b82f6)' }}
                     >
                         ➕ Adicionar
                     </button>
                 </form>
 
-                {/* Grid de Colunas (Kanban Style) */}
+                {/* Grid de Colunas */}
                 <div className='grid grid-cols-1 md:grid-cols-3 gap-6 px-4'>
 
                     {/* Coluna: Para Fazer */}
@@ -40,10 +65,16 @@ export default function HomePage() {
                             <p className="text-center font-bold text-gray-700 uppercase tracking-wider">Para Fazer</p>
                         </div>
                         <div className='p-4 flex-grow space-y-3'>
-                            {/* Exemplo de card de tarefa */}
-                            <div className='p-3 bg-gray-50 rounded-lg border border-gray-200 shadow-sm cursor-pointer hover:bg-white transition-colors'>
-                                📌 Exemplo de tarefa pendente
-                            </div>
+                            {/* Um card para cada tarefa */}
+                            {tasks.map((task) => (
+                                task.type == 1 ?
+                                    <ul key={task.id} className='p-3 bg-gray-50 rounded-lg border border-gray-200 shadow-sm cursor-pointer hover:bg-white transition-colors'>
+                                        <span className="text-gray-800 bg-gray-400">{task.name}</span>
+                                    </ul>
+                                :
+                                <div key={task.id}>{''}</div>
+                                ))
+                            }
                         </div>
                     </div>
 
@@ -53,9 +84,16 @@ export default function HomePage() {
                             <p className="text-center font-bold text-gray-700 uppercase tracking-wider">Em Andamento</p>
                         </div>
                         <div className='p-4 flex-grow space-y-3'>
-                            <div className='p-3 bg-gray-50 rounded-lg border border-gray-200 shadow-sm cursor-pointer hover:bg-white transition-colors'>
-                                ⚙️ Trabalhando nisso agora...
-                            </div>
+                            {/* Um card para cada tarefa */}
+                            {tasks.map((task) => (
+                                task.type == 2 ?
+                                    <ul key={task.id} className='p-3 bg-gray-50 rounded-lg border border-gray-200 shadow-sm cursor-pointer hover:bg-white transition-colors'>
+                                        <span className="text-gray-800 bg-gray-400">{task.name}</span>
+                                    </ul>
+                                :
+                                <div key={task.id}>{''}</div>
+                                ))
+                            }
                         </div>
                     </div>
 
@@ -65,9 +103,16 @@ export default function HomePage() {
                             <p className="text-center font-bold text-gray-700 uppercase tracking-wider">Concluído</p>
                         </div>
                         <div className='p-4 flex-grow space-y-3'>
-                            <div className='p-3 bg-gray-50 rounded-lg border border-gray-200 shadow-sm line-through text-gray-400'>
-                                ✅ Tarefa finalizada
-                            </div>
+                            {/* Um card para cada tarefa */}
+                            {tasks.map((task) => (
+                                task.type == 3 ?
+                                    <ul key={task.id} className='p-3 bg-gray-50 rounded-lg border border-gray-200 shadow-sm cursor-pointer hover:bg-white transition-colors'>
+                                        <span className="text-gray-800 bg-gray-400">{task.name}</span>
+                                    </ul>
+                                :
+                                <div key={task.id}>{''}</div>
+                                ))
+                            }
                         </div>
                     </div>
 
