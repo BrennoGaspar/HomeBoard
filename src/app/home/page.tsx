@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 'use client'
 
+import { AddTask } from "@/util/AddTask";
 import { Fetch } from "@/util/Fetch";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 
 interface Task {
     id: number;
@@ -12,11 +13,20 @@ interface Task {
 
 export default function HomePage() {
 
+    const [name, setName] = useState("");
     const [tasks, setTasks] = useState<Task[]>([]);
 
     const handleAdd = async (e: React.FormEvent) => {
         e.preventDefault();
+        if( !name.trim() ) return;
+        await AddTask({ name });
+        setName("");
+        handleFetch();
         // Sua lógica de backend entrará aqui
+    }
+
+    const changeName = (evento: { target: { value: SetStateAction<string>; }; }) => {
+        setName(evento.target.value);
     }
 
     const handleFetch = async () => {
@@ -45,7 +55,9 @@ export default function HomePage() {
                     <input
                         type="text"
                         placeholder="📝 Adicionar nova tarefa"
+                        value={name}
                         className='text-xl rounded-l-lg bg-white p-3 w-full max-w-md shadow-sm focus:outline-none border-y border-l border-gray-200'
+                        onChange={changeName}
                     />
                     <button
                         type="submit"
@@ -66,13 +78,12 @@ export default function HomePage() {
                         </div>
                         <div className='p-4 flex-grow space-y-3'>
                             {/* Um card para cada tarefa */}
-                            {tasks.map((task) => (
-                                task.type == 1 ?
-                                    <ul key={task.id} className='p-3 bg-gray-50 rounded-lg border border-gray-200 shadow-sm cursor-pointer hover:bg-white transition-colors'>
-                                        <span className="text-gray-800 bg-gray-400">{task.name}</span>
-                                    </ul>
-                                :
-                                <div key={task.id}>{''}</div>
+                            {tasks
+                                .filter(task => task.type === 1)
+                                .map((task) => (
+                                    <div key={task.id} className='p-3 bg-gray-50 rounded-lg border border-gray-200 shadow-sm hover:bg-white transition-colors'>
+                                        <span className="text-gray-800">{task.name}</span>
+                                    </div>
                                 ))
                             }
                         </div>
@@ -85,13 +96,12 @@ export default function HomePage() {
                         </div>
                         <div className='p-4 flex-grow space-y-3'>
                             {/* Um card para cada tarefa */}
-                            {tasks.map((task) => (
-                                task.type == 2 ?
-                                    <ul key={task.id} className='p-3 bg-gray-50 rounded-lg border border-gray-200 shadow-sm cursor-pointer hover:bg-white transition-colors'>
-                                        <span className="text-gray-800 bg-gray-400">{task.name}</span>
-                                    </ul>
-                                :
-                                <div key={task.id}>{''}</div>
+                            {tasks
+                                .filter(task => task.type === 2)
+                                .map((task) => (
+                                    <div key={task.id} className='p-3 bg-gray-50 rounded-lg border border-gray-200 shadow-sm hover:bg-white transition-colors'>
+                                        <span className="text-gray-800">{task.name}</span>
+                                    </div>
                                 ))
                             }
                         </div>
@@ -104,13 +114,12 @@ export default function HomePage() {
                         </div>
                         <div className='p-4 flex-grow space-y-3'>
                             {/* Um card para cada tarefa */}
-                            {tasks.map((task) => (
-                                task.type == 3 ?
-                                    <ul key={task.id} className='p-3 bg-gray-50 rounded-lg border border-gray-200 shadow-sm cursor-pointer hover:bg-white transition-colors'>
-                                        <span className="text-gray-800 bg-gray-400">{task.name}</span>
-                                    </ul>
-                                :
-                                <div key={task.id}>{''}</div>
+                            {tasks
+                                .filter(task => task.type === 3)
+                                .map((task) => (
+                                    <div key={task.id} className='p-3 bg-gray-50 rounded-lg border border-gray-200 shadow-sm hover:bg-white transition-colors'>
+                                        <span className="text-gray-800">{task.name}</span>
+                                    </div>
                                 ))
                             }
                         </div>
