@@ -9,6 +9,25 @@ Com ele, é possível adicionar atividades, acompanhar o andamento e marcar tare
 
 ---
 
+## 🌐 Deploy
+
+Acesse o projeto online:
+
+👉 https://home-board-todo.vercel.app/
+
+---
+
+## 🔐 Usuário de Demonstração
+
+Para testar o sistema, utilize o usuário padrão abaixo:
+
+```txt
+Email: usuario@gmail.com
+Senha: 1234567
+```
+
+---
+
 ## 🚀 Funcionalidades
 
 - ➕ Adicionar novas tarefas
@@ -55,9 +74,7 @@ O projeto foi desenvolvido com foco em:
 
 ## 📸 Preview
 
-Adicione aqui uma imagem do projeto:
-
-<img width="1237" height="818" alt="image" src="https://github.com/user-attachments/assets/d316353d-314e-4ab5-b7fa-30f26af812dd" />
+<img width="1237" height="818" alt="image" src="https://github.com/user-attachments/assets/8c2dfc05-06f2-4d73-8eeb-c2662796990b" />
 
 ---
 
