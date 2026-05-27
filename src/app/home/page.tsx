@@ -1,10 +1,6 @@
 'use client'
 
-import { AddTask } from "@/util/AddTask";
-import { Doing } from "@/util/Doing";
-import { Done } from "@/util/Done";
-import { Fetch } from "@/util/Fetch";
-import { RemTask } from "@/util/RemTask";
+import { AddTask, Doing, Done, Fetch, RemTask } from "@/util/TaskControl";
 import { SetStateAction, useEffect, useState } from "react";
 
 interface Task {
